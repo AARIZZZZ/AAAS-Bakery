@@ -283,7 +283,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-
+const marqueeTrack = document.getElementById('mqt');
 if (marqueeTrack) {
   marqueeTrack.addEventListener('mouseenter', () => marqueeTrack.style.animationPlayState = 'paused');
   marqueeTrack.addEventListener('mouseleave', () => marqueeTrack.style.animationPlayState = 'running');
