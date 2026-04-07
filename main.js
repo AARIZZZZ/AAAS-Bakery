@@ -1,4 +1,4 @@
-// ── Loader ──────────────────────────────────────
+
 (function () {
   var fill = document.getElementById('lf');
   var pct  = document.getElementById('lpct');
@@ -22,7 +22,7 @@
   tick();
 })();
 
-// ── Scroll progress + back-to-top ───────────────
+
 window.addEventListener('scroll', () => {
   const scrolled = scrollY, maxScroll = document.documentElement.scrollHeight - innerHeight;
   document.getElementById('pb').style.width = (scrolled / maxScroll * 100) + '%';
@@ -32,7 +32,7 @@ document.getElementById('btt').addEventListener('click', () =>
   window.scrollTo({ top: 0, behavior: 'smooth' })
 );
 
-// ── Custom cursor ────────────────────────────────
+
 const cursorDot   = document.getElementById('cdot');
 const cursorRing  = document.getElementById('crng');
 const cursorLabel = document.getElementById('clbl');
@@ -69,11 +69,11 @@ document.querySelectorAll('a,button,.sc,.gi,.gtab').forEach(el => {
   }
 });
 
-// ── Nav scroll ──────────────────────────────────
+
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('sc', scrollY > 60));
 
-// ── Mobile menu ──────────────────────────────────
+
 function toggleMobileMenu() {
   const menu = document.getElementById('mob');
   const hamburger = document.getElementById('ham');
@@ -87,13 +87,13 @@ function closeMobileMenu() {
   document.body.style.overflow = '';
 }
 
-// ── Hero parallax ────────────────────────────────
+
 const heroParallax = document.getElementById('hpar');
 window.addEventListener('scroll', () => {
   if (heroParallax) heroParallax.style.transform = `translateY(${scrollY * .2}px)`;
 });
 
-// ── Particle canvas ──────────────────────────────
+
 const particleCanvas = document.getElementById('pc');
 if (particleCanvas) {
   const ctx = particleCanvas.getContext('2d');
@@ -104,7 +104,7 @@ if (particleCanvas) {
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // Pink/rose palette for particles
+  
   const colors = ['rgba(245,198,216,', 'rgba(224,80,136,', 'rgba(253,232,239,', 'rgba(240,144,176,'];
 
   class Particle {
@@ -140,14 +140,14 @@ if (particleCanvas) {
   })();
 }
 
-// ── Scroll reveal ────────────────────────────────
+
 const revealObserver = new IntersectionObserver(entries =>
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); }),
   { threshold: .1, rootMargin: '0px 0px -40px 0px' }
 );
 document.querySelectorAll('.rv,.rvl,.rvr,.rvs').forEach(el => revealObserver.observe(el));
 
-// ── Animated counters ────────────────────────────
+
 function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
 function animateCounter(el) {
   const target = +el.dataset.t, suffix = el.dataset.s || '', duration = 1800, startTime = performance.now();
@@ -164,7 +164,7 @@ const counterObserver = new IntersectionObserver(entries =>
 );
 document.querySelectorAll('.cu').forEach(el => counterObserver.observe(el));
 
-// ── Magnetic buttons ─────────────────────────────
+─
 document.querySelectorAll('.btn').forEach(btn => {
   btn.addEventListener('mousemove', e => {
     const r = btn.getBoundingClientRect();
@@ -173,7 +173,7 @@ document.querySelectorAll('.btn').forEach(btn => {
   btn.addEventListener('mouseleave', () => btn.style.transform = '');
 });
 
-// ── 3D tilt service cards ────────────────────────
+
 document.querySelectorAll('.sc').forEach(card => {
   card.addEventListener('mousemove', e => {
     const r = card.getBoundingClientRect();
@@ -182,7 +182,7 @@ document.querySelectorAll('.sc').forEach(card => {
   card.addEventListener('mouseleave', () => card.style.transform = '');
 });
 
-// ── Gallery filter tabs ──────────────────────────
+
 document.querySelectorAll('.gtab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.gtab').forEach(t => t.classList.remove('act'));
@@ -198,7 +198,7 @@ document.querySelectorAll('.gtab').forEach(tab => {
   });
 });
 
-// ── Gallery lightbox ─────────────────────────────
+
 const lightbox = document.getElementById('lightbox');
 if (lightbox) {
   document.querySelectorAll('.gi').forEach(item => {
@@ -218,7 +218,7 @@ if (lightbox) {
   lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
 }
 
-// ── Testimonial slider ───────────────────────────
+
 const testimonialTrack   = document.getElementById('tt');
 const testimonialDots    = document.querySelectorAll('.t-dt');
 const testimonialCounter = document.getElementById('tctr');
@@ -248,7 +248,7 @@ testimonialTrack.addEventListener('mouseleave', () => {
   autoSlide = setInterval(() => goToSlide(currentSlide + 1), 5500);
 });
 
-// ── Order form submit ────────────────────────────
+
 const fsubBtn = document.getElementById('fsub');
 if (fsubBtn) {
   fsubBtn.addEventListener('click', function () {
@@ -272,7 +272,7 @@ if (fsubBtn) {
   });
 }
 
-// ── Smooth scroll ────────────────────────────────
+
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const target = document.querySelector(a.getAttribute('href'));
@@ -283,14 +283,13 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// ── Marquee pause on hover ───────────────────────
-const marqueeTrack = document.getElementById('mqt');
+
 if (marqueeTrack) {
   marqueeTrack.addEventListener('mouseenter', () => marqueeTrack.style.animationPlayState = 'paused');
   marqueeTrack.addEventListener('mouseleave', () => marqueeTrack.style.animationPlayState = 'running');
 }
 
-// ── Hero badge parallax ──────────────────────────
+
 const heroBadge = document.querySelector('.h-badge');
 if (heroBadge) {
   document.addEventListener('mousemove', e => {
@@ -298,7 +297,7 @@ if (heroBadge) {
   });
 }
 
-// ── Active nav link on scroll ────────────────────
+
 const navLinks = document.querySelectorAll('.n-links a:not(.n-cta)');
 document.querySelectorAll('section[id]').forEach(section =>
   new IntersectionObserver(entries =>
@@ -312,7 +311,7 @@ document.querySelectorAll('section[id]').forEach(section =>
   ).observe(section)
 );
 
-// ── Floating hearts animation (fun extra!) ───────
+
 function createHeart() {
   const heart = document.createElement('div');
   heart.innerHTML = '♥';
@@ -331,7 +330,7 @@ function createHeart() {
   setTimeout(() => heart.remove(), 8000);
 }
 
-// Add floating heart keyframes
+
 const style = document.createElement('style');
 style.textContent = `
   @keyframes floatHeart {
@@ -341,5 +340,5 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Spawn hearts occasionally
+
 setInterval(createHeart, 3500);
