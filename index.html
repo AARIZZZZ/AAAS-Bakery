@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AAAS Bakery — Creating Sweet Memories</title>
+<meta name="description" content="AAAS Bakery — Durgapur's home for custom cakes, sweet bouquets, and edible art. Creating sweet memories, one cake at a time."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- Scroll progress bar -->
+<div id="pb"></div>
+
+<!-- Loader -->
+<div id="ldr">
+  <div class="l-inner">
+    <div class="l-logo">AAAS <span>Bakery</span></div>
+    <p class="l-tag">Creating Sweet Memories</p>
+    <div class="l-wrap"><div class="l-fill" id="lf"></div></div>
+    <div class="l-pct" id="lpct">0%</div>
+  </div>
+</div>
+
+<!-- Custom cursor -->
+<div id="cdot"></div>
+<div id="crng"></div>
+<div id="clbl"></div>
+
+<!-- Back to top -->
+<button id="btt">↑</button>
+
+<!-- Mobile menu -->
+<div id="mob">
+  <a href="#home"         class="ml" onclick="closeMobileMenu()">Home</a>
+  <a href="#specialties"  class="ml" onclick="closeMobileMenu()">Our Cakes</a>
+  <a href="#about"        class="ml" onclick="closeMobileMenu()">Our Story</a>
+  <a href="#gallery"      class="ml" onclick="closeMobileMenu()">Gallery</a>
+  <a href="#custom"       class="ml" onclick="closeMobileMenu()">Custom Order</a>
+  <a href="#testimonials" class="ml" onclick="closeMobileMenu()">Reviews</a>
+  <a href="#contact"      class="ml" onclick="closeMobileMenu()">Order Now</a>
+  <div class="mob-ft">© 2025 AAAS Bakery · Asansol</div>
+</div>
+
+<!-- Nav -->
+<nav id="nav">
+  <a href="#home" class="n-logo n-logo-img">
+    <img src="aaas_logo.jpg" alt="AAAS Bakery" class="nav-logo-img"/>
+  </a>
+  <ul class="n-links">
+    <li><a href="#specialties"><span class="lt">Our Cakes</span><span class="lh">Our Cakes</span></a></li>
+    <li><a href="#about"><span class="lt">Our Story</span><span class="lh">Our Story</span></a></li>
+    <li><a href="#gallery"><span class="lt">Gallery</span><span class="lh">Gallery</span></a></li>
+    <li><a href="#custom"><span class="lt">Custom Order</span><span class="lh">Custom Order</span></a></li>
+    <li><a href="#testimonials"><span class="lt">Reviews</span><span class="lh">Reviews</span></a></li>
+    <li><a href="#contact" class="n-cta">Order Now 🎂</a></li>
+  </ul>
+  <button class="ham" id="ham" onclick="toggleMobileMenu()">
+    <span class="hl"></span><span class="hl"></span><span class="hl"></span>
+  </button>
+</nav>
+
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section id="home">
+  <canvas id="pc"></canvas>
+
+  <div class="h-l">
+    <p class="h-tag">Est. 2024 · Custom Cakes & Sweet Gifts · Asansol</p>
+
+    <h1 class="h-h1">
+      <span class="lw"><span class="li">Every Slice</span></span>
+      <span class="lw"><span class="li">is a <em>Memory.</em></span></span>
+    </h1>
+
+    <div class="h-div"></div>
+
+    <p class="h-sub">Handcrafted cakes, edible art, and sweet bouquets — made with love for every occasion that deserves to be celebrated.</p>
+
+    <div class="h-btns">
+      <a href="#custom" class="btn btn-pk" data-cursor="Order">
+        <span>Order a Custom Cake</span><span class="arr">→</span>
+      </a>
+      <a href="#gallery" class="btn btn-ol" data-cursor="View">
+        <span>See Our Work</span>
+      </a>
+    </div>
+
+    <div class="h-stats">
+      <div class="si">
+        <span class="sn cu" data-t="500" data-s="+">0</span>
+        <span class="sl">Happy Customers</span>
+      </div>
+      <div class="si">
+        <span class="sn cu" data-t="100" data-s="%">0</span>
+        <span class="sl">Made with Love</span>
+      </div>
+      <div class="si">
+        <span class="sn cu" data-t="50" data-s="+">0</span>
+        <span class="sl">Unique Designs</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="h-r">
+    <div class="h-par" id="hpar">
+      <!-- Hero visual: stacked cake SVG illustration -->
+      <svg class="h-illus" viewBox="0 0 600 750" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="hbg" cx="50%" cy="40%" r="70%">
+            <stop offset="0%" stop-color="#fde8ef"/>
+            <stop offset="100%" stop-color="#f5c6d8"/>
+          </radialGradient>
+          <radialGradient id="cake1" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stop-color="#fff5f8"/>
+            <stop offset="100%" stop-color="#fcd5e3"/>
+          </radialGradient>
+        </defs>
+        <rect width="600" height="750" fill="url(#hbg)"/>
+        <!-- Decorative circles -->
+        <circle cx="300" cy="360" r="220" fill="rgba(255,255,255,0.15)"/>
+        <circle cx="300" cy="360" r="290" fill="none" stroke="rgba(235,150,180,0.15)" stroke-width="1"/>
+        <!-- Cake stand -->
+        <ellipse cx="300" cy="620" rx="130" ry="18" fill="#e8b4c8"/>
+        <rect x="280" y="580" width="40" height="50" fill="#e8b4c8"/>
+        <ellipse cx="300" cy="580" rx="70" ry="10" fill="#f0c8d8"/>
+        <!-- Cake bottom tier -->
+        <ellipse cx="300" cy="510" rx="115" ry="20" fill="#fcd5e3"/>
+        <rect x="185" y="450" width="230" height="65" rx="8" fill="url(#cake1)"/>
+        <ellipse cx="300" cy="450" rx="115" ry="20" fill="#fff5f8"/>
+        <!-- Bottom tier detail stripes -->
+        <path d="M200 460 Q300 468 400 460" stroke="rgba(235,150,180,0.3)" stroke-width="1.5" fill="none"/>
+        <path d="M195 475 Q300 483 405 475" stroke="rgba(235,150,180,0.2)" stroke-width="1" fill="none"/>
+        <!-- Hearts on bottom tier -->
+        <path d="M225 480 C225 475 218 468 210 472 C202 476 202 486 210 492 L225 505 L240 492 C248 486 248 476 240 472 C232 468 225 475 225 480Z" fill="rgba(230,100,140,0.3)" transform="scale(0.55) translate(185,315)"/>
+        <path d="M225 480 C225 475 218 468 210 472 C202 476 202 486 210 492 L225 505 L240 492 C248 486 248 476 240 472 C232 468 225 475 225 480Z" fill="rgba(230,100,140,0.25)" transform="scale(0.5) translate(350,340)"/>
+        <!-- Cake top tier -->
+        <ellipse cx="300" cy="395" rx="80" ry="15" fill="#fbc8d8"/>
+        <rect x="220" y="345" width="160" height="55" rx="6" fill="#fff0f5"/>
+        <ellipse cx="300" cy="345" rx="80" ry="15" fill="#fff8fa"/>
+        <!-- Frosting drips top tier -->
+        <path d="M240 345 Q243 338 246 345" fill="rgba(252,200,218,0.7)"/>
+        <path d="M260 345 Q264 336 268 345" fill="rgba(252,200,218,0.7)"/>
+        <path d="M280 345 Q283 339 286 345" fill="rgba(252,200,218,0.6)"/>
+        <path d="M310 345 Q313 337 316 345" fill="rgba(252,200,218,0.7)"/>
+        <path d="M330 345 Q334 340 338 345" fill="rgba(252,200,218,0.6)"/>
+        <path d="M350 345 Q353 338 356 345" fill="rgba(252,200,218,0.7)"/>
+        <!-- Top tier deco -->
+        <circle cx="270" cy="368" r="4" fill="rgba(220,80,130,0.35)"/>
+        <circle cx="300" cy="372" r="3" fill="rgba(220,80,130,0.3)"/>
+        <circle cx="330" cy="368" r="4" fill="rgba(220,80,130,0.35)"/>
+        <!-- Candles -->
+        <rect x="280" y="295" width="8" height="52" rx="4" fill="#f9a8c9"/>
+        <rect x="298" y="285" width="8" height="62" rx="4" fill="#c8a8f9"/>
+        <rect x="316" y="295" width="8" height="52" rx="4" fill="#a8d8f9"/>
+        <!-- Flames -->
+        <ellipse cx="284" cy="291" rx="4" ry="7" fill="#ffd86e" opacity="0.9"/>
+        <ellipse cx="302" cy="281" rx="4" ry="7" fill="#ffd86e" opacity="0.9"/>
+        <ellipse cx="320" cy="291" rx="4" ry="7" fill="#ffd86e" opacity="0.9"/>
+        <!-- Stars sparkles -->
+        <g fill="#f0a8c0" opacity="0.6">
+          <circle cx="148" cy="220" r="2.5"/>
+          <circle cx="462" cy="282" r="2"/>
+          <circle cx="118" cy="480" r="1.8"/>
+          <circle cx="492" cy="420" r="2.2"/>
+          <circle cx="178" cy="360" r="1.6"/>
+          <circle cx="444" cy="160" r="2"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="h-badge">
+      <svg viewBox="0 0 120 120">
+        <defs><path id="ct" d="M10,60 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs>
+        <text font-family="DM Sans,sans-serif" font-size="8.5" fill="rgba(180,80,120,.6)" letter-spacing="3.2">
+          <textPath href="#ct">CUSTOM CAKES · SWEET GIFTS · DURGAPUR ·</textPath>
+        </text>
+      </svg>
+      <div class="h-badge-c">🎂</div>
+    </div>
+
+    <div class="cdeco"></div>
+  </div>
+
+  <div class="scroll-h"><div class="sm"><div class="sw"></div></div><span>Scroll</span></div>
+</section>
+
+
+<!-- ══════════════ MARQUEE STRIP ══════════════ -->
+<div class="mqstrip"><div class="mqtrack" id="mqt">
+  <span class="mqi"><em>✦</em>Birthday Cakes<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Anniversary Cakes<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Custom Designs<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Sweet Bouquets<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Theme Cakes<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Photo Cakes<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Candy Hampers<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Creating Sweet Memories<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Birthday Cakes<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Anniversary Cakes<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Custom Designs<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Sweet Bouquets<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Theme Cakes<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Photo Cakes<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Candy Hampers<span class="mdot"></span></span>
+  <span class="mqi"><em>✦</em>Creating Sweet Memories<span class="mdot"></span></span>
+</div></div>
+
+
+<!-- ══════════════ SPECIALTIES ══════════════ -->
+<section id="specialties">
+  <div class="sp-hd">
+    <div>
+      <p class="ey rv">What We Make</p>
+      <h2 class="st rv d1">Our <em>Signature</em> Creations</h2>
+      <div class="rule rv d2"></div>
+      <p class="sb rv d3">From dreamy birthday cakes to edible masterpieces — every creation is baked with heart and finished with artistry.</p>
+    </div>
+    <a href="#custom" class="btn btn-pk rv d2" data-cursor="Order">
+      <span>Order Now</span><span class="arr">→</span>
+    </a>
+  </div>
+
+  <div class="sp-g">
+
+    <div class="sc rv d1" data-cursor="Yum">
+      <div class="sc-bg"></div>
+      <span class="sc-num">01</span>
+      <div class="sc-ico">🎂</div>
+      <h3 class="sc-nm">Birthday Cakes</h3>
+      <p class="sc-dsc">Custom-designed birthday cakes for every age and vibe — from minimalist hearts to sculpted 3D creations. Made fresh to order with your preferred flavour and theme.</p>
+      <div class="sc-ft"><span class="sc-pr">From ₹ [price]</span><div class="sc-ar">→</div></div>
+    </div>
+
+    <div class="sc rv d2" data-cursor="Love">
+      <div class="sc-bg"></div>
+      <span class="sc-num">02</span>
+      <div class="sc-ico">💕</div>
+      <h3 class="sc-nm">Anniversary Cakes</h3>
+      <p class="sc-dsc">Celebrate your love story with a cake as special as your bond. Photo prints, heart toppers, couple figurines — we bring your vision to life.</p>
+      <div class="sc-ft"><span class="sc-pr">From ₹ [price]</span><div class="sc-ar">→</div></div>
+    </div>
+
+    <div class="sc rv d3" data-cursor="Wow">
+      <div class="sc-bg"></div>
+      <span class="sc-num">03</span>
+      <div class="sc-ico">🚗</div>
+      <h3 class="sc-nm">Theme & 3D Cakes</h3>
+      <p class="sc-dsc">Cars, characters, calendars, minions — if you can dream it, we can bake it. Our sculpted theme cakes are showstoppers for any occasion.</p>
+      <div class="sc-ft"><span class="sc-pr">From ₹ [price]</span><div class="sc-ar">→</div></div>
+    </div>
+
+    <div class="sc rv d1" data-cursor="Sweet">
+      <div class="sc-bg"></div>
+      <span class="sc-num">04</span>
+      <div class="sc-ico">🍪</div>
+      <h3 class="sc-nm">Specialty Cheesecakes</h3>
+      <p class="sc-dsc">Lotus Biscoff, Oreo, mango — rich, layered no-bake cheesecakes that melt in your mouth. Perfect for when you want something indulgently different.</p>
+      <div class="sc-ft"><span class="sc-pr">From ₹ [price]</span><div class="sc-ar">→</div></div>
+    </div>
+
+    <div class="sc rv d2" data-cursor="Cute">
+      <div class="sc-bg"></div>
+      <span class="sc-num">05</span>
+      <div class="sc-ico">🌹</div>
+      <h3 class="sc-nm">Sweet Bouquets</h3>
+      <p class="sc-dsc">Candy bouquets shaped like hearts, wrapped in love — the cutest gift for someone special. Featuring Melody chocolates, fresh flowers, and custom ribbons.</p>
+      <div class="sc-ft"><span class="sc-pr">From ₹ [price]</span><div class="sc-ar">→</div></div>
+    </div>
+
+    <div class="sc rv d3" data-cursor="Photo">
+      <div class="sc-bg"></div>
+      <span class="sc-num">06</span>
+      <div class="sc-ico">📸</div>
+      <h3 class="sc-nm">Photo & Calendar Cakes</h3>
+      <p class="sc-dsc">Edible photo prints, calendar designs with special dates circled — uniquely personal cakes that double as a heartfelt keepsake. So thoughtful, so sweet.</p>
+      <div class="sc-ft"><span class="sc-pr">From ₹ [price]</span><div class="sc-ar">→</div></div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════ ABOUT ══════════════════ -->
+<div class="ab-strip">
+  <div class="ab-vis rvl">
+    <div class="ab-a">
+      <!-- Logo-inspired illustration: baker girl -->
+      <svg viewBox="0 0 340 440" xmlns="http://www.w3.org/2000/svg">
+        <rect width="340" height="440" fill="#fde8ef"/>
+        <!-- Chef hat -->
+        <ellipse cx="170" cy="115" rx="55" ry="15" fill="white"/>
+        <ellipse cx="170" cy="108" rx="44" ry="30" fill="white"/>
+        <rect x="126" y="108" width="88" height="18" fill="white"/>
+        <path d="M126 120 Q170 128 214 120" fill="#f9d0e0"/>
+        <!-- Face -->
+        <ellipse cx="170" cy="165" rx="50" ry="55" fill="#fde0c8"/>
+        <!-- Hair -->
+        <ellipse cx="170" cy="128" rx="52" ry="22" fill="#5a3220"/>
+        <path d="M120 155 Q112 195 118 240 Q130 200 132 165" fill="#5a3220"/>
+        <path d="M220 155 Q228 195 222 240 Q210 200 208 165" fill="#5a3220"/>
+        <!-- Eyes -->
+        <ellipse cx="155" cy="160" rx="7" ry="8" fill="#3d2415"/>
+        <ellipse cx="185" cy="160" rx="7" ry="8" fill="#3d2415"/>
+        <circle cx="157" cy="158" r="2.5" fill="white" opacity="0.6"/>
+        <circle cx="187" cy="158" r="2.5" fill="white" opacity="0.6"/>
+        <!-- Blush -->
+        <ellipse cx="140" cy="178" rx="14" ry="8" fill="rgba(230,110,140,0.22)"/>
+        <ellipse cx="200" cy="178" rx="14" ry="8" fill="rgba(230,110,140,0.22)"/>
+        <!-- Smile -->
+        <path d="M155 192 Q170 205 185 192" stroke="#c07080" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Body / apron -->
+        <ellipse cx="170" cy="295" rx="62" ry="80" fill="#fff0f5"/>
+        <rect x="108" y="225" width="124" height="160" rx="10" fill="#fff0f5"/>
+        <!-- Apron detail -->
+        <rect x="148" y="225" width="44" height="140" rx="6" fill="#fbc8d8"/>
+        <!-- Bow on apron -->
+        <path d="M148 238 L136 226 L148 238 L148 252 L136 264 Z" fill="#f090b0"/>
+        <path d="M192 238 L204 226 L192 238 L192 252 L204 264 Z" fill="#f090b0"/>
+        <circle cx="170" cy="238" r="7" fill="#f090b0"/>
+        <!-- Cake in hands -->
+        <ellipse cx="170" cy="338" rx="38" ry="8" fill="#fbc8d8"/>
+        <rect x="132" y="305" width="76" height="35" rx="5" fill="#fff5f8"/>
+        <ellipse cx="170" cy="305" rx="38" ry="8" fill="white"/>
+        <!-- Cake hearts -->
+        <text x="155" y="327" font-size="16" fill="rgba(220,80,130,0.4)">♥ ♥</text>
+        <!-- Caption -->
+        <text x="170" y="420" text-anchor="middle" font-family="Dancing Script,cursive" font-size="16" fill="rgba(180,80,120,0.4)">Made with Love ♥</text>
+      </svg>
+    </div>
+    <div class="ab-b">
+      <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="280" height="200" fill="#2d1520"/>
+        <circle cx="140" cy="88" r="54" fill="rgba(240,160,190,.06)" stroke="rgba(240,160,190,.18)" stroke-width="1"/>
+        <text x="140" y="88" text-anchor="middle" dominant-baseline="middle" font-family="Playfair Display,serif" font-size="30" fill="rgba(240,160,190,0.25)" font-style="italic">♥</text>
+        <text x="140" y="172" text-anchor="middle" font-family="Dancing Script,cursive" font-size="13" fill="rgba(240,160,190,.45)">Est. 2024 · Asansol</text>
+      </svg>
+    </div>
+    <div class="ab-tag">Baked with ♥ in Asansol</div>
+  </div>
+
+  <div class="rvr">
+    <p class="ey">Our Story</p>
+    <h2 class="st">Sweet Dreams, <em>Real Cakes</em></h2>
+    <div class="rule"></div>
+    <p class="sb">AAAS Bakery started with a simple belief — that every celebration deserves a cake as beautiful and unique as the moment itself. What began as a passion for baking has blossomed into a beloved local bakery, creating edible art that makes every occasion unforgettable.</p>
+    <div class="ab-fts">
+      <div class="af">
+        <div class="af-ic">🎂</div>
+        <div>
+          <div class="af-lb">Made Fresh to Order</div>
+          <div class="af-sb">Every cake baked fresh, never pre-made</div>
+        </div>
+      </div>
+      <div class="af">
+        <div class="af-ic">✨</div>
+        <div>
+          <div class="af-lb">100% Custom Designs</div>
+          <div class="af-sb">Truly unique — no two cakes alike</div>
+        </div>
+      </div>
+      <div class="af">
+        <div class="af-ic">🌸</div>
+        <div>
+          <div class="af-lb">Quality Ingredients</div>
+          <div class="af-sb">Premium, fresh ingredients only</div>
+        </div>
+      </div>
+      <div class="af">
+        <div class="af-ic">💌</div>
+        <div>
+          <div class="af-lb">Made with Love</div>
+          <div class="af-sb">Every order gets personal attention</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════ GALLERY ══════════════════ -->
+<section id="gallery">
+  <div class="g-hd">
+    <p class="ey rv" style="justify-content:center">Our Work</p>
+    <h2 class="st rv d1">A Taste of <em>Artistry</em></h2>
+    <div class="rule rv d2"></div>
+    <p class="sb rv d3">Every cake tells a story. Here are some of our favourites.</p>
+  </div>
+
+  <div class="gtabs rv d2">
+    <button class="gtab act" data-f="all">All</button>
+    <button class="gtab" data-f="birthday">Birthday</button>
+    <button class="gtab" data-f="anniversary">Anniversary</button>
+    <button class="gtab" data-f="theme">Theme</button>
+    <button class="gtab" data-f="special">Specials</button>
+  </div>
+
+  <div class="g-grid rv">
+
+    <div class="gi g1 gc1" data-c="birthday">
+      <div class="gi-ph" style="background-image:url('WhatsApp_Image_2026-04-03_at_18_21_36__1_.jpeg')"></div>
+      <div class="gi-ov"><span class="gi-lb">Birthday Ombre Cake</span></div>
+    </div>
+
+    <div class="gi g2 gc2" data-c="special">
+      <div class="gi-ph" style="background-image:url('WhatsApp_Image_2026-04-03_at_18_21_36__2_.jpeg')"></div>
+      <div class="gi-ov"><span class="gi-lb">Melody Candy Bouquet</span></div>
+    </div>
+
+    <div class="gi g3 gc3" data-c="birthday">
+      <div class="gi-ph" style="background-image:url('WhatsApp_Image_2026-04-03_at_18_21_36.jpeg')"></div>
+      <div class="gi-ov"><span class="gi-lb">Calendar Birthday Cake</span></div>
+    </div>
+
+    <div class="gi g4 gc4" data-c="theme">
+      <div class="gi-ph" style="background-image:url('WhatsApp_Image_2026-04-03_at_18_21_37__1_.jpeg')"></div>
+      <div class="gi-ov"><span class="gi-lb">Minion Theme Cake</span></div>
+    </div>
+
+    <div class="gi g5 gc5" data-c="special">
+      <div class="gi-ph" style="background-image:url('WhatsApp_Image_2026-04-03_at_18_21_37__2_.jpeg')"></div>
+      <div class="gi-ov"><span class="gi-lb">Lotus & Oreo Cheesecake</span></div>
+    </div>
+
+    <div class="gi g6 gc6" data-c="anniversary">
+      <div class="gi-ph" style="background-image:url('WhatsApp_Image_2026-04-03_at_18_21_37.jpeg')"></div>
+      <div class="gi-ov"><span class="gi-lb">Anniversary Love Cake</span></div>
+    </div>
+
+    <div class="gi g7 gc7" data-c="theme">
+      <div class="gi-ph" style="background-image:url('WhatsApp_Image_2026-04-03_at_18_21_38__1_.jpeg')"></div>
+      <div class="gi-ov"><span class="gi-lb">3D Car Cake</span></div>
+    </div>
+
+    <div class="gi g8 gc8" data-c="birthday">
+      <div class="gi-ph" style="background-image:url('WhatsApp_Image_2026-04-03_at_18_21_38.jpeg')"></div>
+      <div class="gi-ov"><span class="gi-lb">Heart Birthday Cake</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox">
+  <button id="lb-close">✕</button>
+  <div id="lb-img"></div>
+  <div id="lb-cap"></div>
+</div>
+
+
+<!-- ══════════════ CUSTOM ORDER ══════════════ -->
+<section id="custom">
+  <div class="cu-hd rv">
+    <p class="ey">Design Your Cake</p>
+    <h2 class="st">Build Your <em>Dream Cake</em></h2>
+    <div class="rule"></div>
+    <p class="sb">Tell us everything — the theme, the flavour, the occasion. We'll make it happen. Fill in the form below and we'll get back to you with a quote within 24 hours.</p>
+  </div>
+
+  <div class="cu-body">
+
+    <!-- Left: why custom -->
+    <div class="cu-info rvl">
+      <div class="cu-steps">
+        <div class="cu-step">
+          <div class="cs-num">1</div>
+          <div>
+            <div class="cs-title">Fill the Form</div>
+            <div class="cs-sub">Tell us your occasion, flavour, size, and design vision.</div>
+          </div>
+        </div>
+        <div class="cu-step">
+          <div class="cs-num">2</div>
+          <div>
+            <div class="cs-title">We Send a Quote</div>
+            <div class="cs-sub">You'll receive a price quote within 24 hours on WhatsApp.</div>
+          </div>
+        </div>
+        <div class="cu-step">
+          <div class="cs-num">3</div>
+          <div>
+            <div class="cs-title">We Bake Your Dream</div>
+            <div class="cs-sub">Confirm the order, and we get baking. Fresh, beautiful, on time.</div>
+          </div>
+        </div>
+        <div class="cu-step">
+          <div class="cs-num">4</div>
+          <div>
+            <div class="cs-title">Celebrate!</div>
+            <div class="cs-sub">Pick it up or get it delivered. Watch their face light up. 🎉</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cu-flavours">
+        <div class="cf-label">Popular Flavours</div>
+        <div class="cf-tags">
+          <span class="cf-tag">Vanilla</span>
+          <span class="cf-tag">Chocolate</span>
+          <span class="cf-tag">Red Velvet</span>
+          <span class="cf-tag">Butterscotch</span>
+          <span class="cf-tag">Black Forest</span>
+          <span class="cf-tag">Strawberry</span>
+          <span class="cf-tag">Pineapple</span>
+          <span class="cf-tag">Oreo</span>
+          <span class="cf-tag">Lotus Biscoff</span>
+          <span class="cf-tag">Mango</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: form -->
+    <div class="cu-form rvr">
+      <div class="cu-form-inner">
+        <div class="cf-header">
+          <p class="ey" style="margin-bottom:10px">Custom Cake Builder</p>
+          <h3 class="cf-title">Your Cake, <em>Your Way</em></h3>
+          <p class="cf-desc">All fields marked * are required. We'll confirm on WhatsApp!</p>
+        </div>
+
+        <div class="af-section-label">About You</div>
+        <div class="fgrid">
+          <div class="ff"><label>Your Name <span class="req">*</span></label><input type="text" placeholder="Your name"/><div class="fln"></div></div>
+          <div class="ff"><label>WhatsApp Number <span class="req">*</span></label><input type="tel" placeholder="+91 00000 00000"/><div class="fln"></div></div>
+        </div>
+
+        <div class="af-section-label">The Occasion</div>
+        <div class="fgrid">
+          <div class="ff full">
+            <label>Occasion <span class="req">*</span></label>
+            <select>
+              <option value="" disabled selected>Select occasion</option>
+              <option>Birthday</option>
+              <option>Anniversary</option>
+              <option>Wedding</option>
+              <option>Baby Shower</option>
+              <option>Graduation</option>
+              <option>Valentine's Day</option>
+              <option>Just Because 💕</option>
+              <option>Other</option>
+            </select>
+            <div class="fln"></div>
+          </div>
+          <div class="ff"><label>Delivery Date <span class="req">*</span></label><input type="date"/><div class="fln"></div></div>
+          <div class="ff">
+            <label>Cake Size <span class="req">*</span></label>
+            <select>
+              <option value="" disabled selected>Select size</option>
+              <option>0.5 kg (serves 4-6)</option>
+              <option>1 kg (serves 8-12)</option>
+              <option>1.5 kg (serves 12-16)</option>
+              <option>2 kg (serves 16-22)</option>
+              <option>Custom / Ask me</option>
+            </select>
+            <div class="fln"></div>
+          </div>
+        </div>
+
+        <div class="af-section-label">Cake Details</div>
+        <div class="fgrid">
+          <div class="ff">
+            <label>Flavour <span class="req">*</span></label>
+            <select>
+              <option value="" disabled selected>Select flavour</option>
+              <option>Vanilla</option>
+              <option>Chocolate</option>
+              <option>Red Velvet</option>
+              <option>Butterscotch</option>
+              <option>Black Forest</option>
+              <option>Strawberry</option>
+              <option>Pineapple</option>
+              <option>Oreo</option>
+              <option>Lotus Biscoff</option>
+              <option>Mango</option>
+              <option>Other (mention below)</option>
+            </select>
+            <div class="fln"></div>
+          </div>
+          <div class="ff">
+            <label>Cake Type</label>
+            <select>
+              <option value="" disabled selected>Select type</option>
+              <option>Regular Cream Cake</option>
+              <option>Photo Cake</option>
+              <option>Theme / 3D Cake</option>
+              <option>Cheesecake</option>
+              <option>Fondant Cake</option>
+              <option>Sweet Bouquet</option>
+            </select>
+            <div class="fln"></div>
+          </div>
+          <div class="ff full">
+            <label>Design Vision / Special Requests <span class="req">*</span></label>
+            <textarea placeholder="Describe your dream cake! Theme, colours, any text to write on it, a reference image you love, dietary needs... tell us everything 🎂" style="height:110px"></textarea>
+            <div class="fln"></div>
+          </div>
+        </div>
+
+        <div class="cf-footer">
+          <button class="fsub" id="fsub">
+            <span class="ft">Send My Cake Order 🎂</span>
+            <span class="fs" style="display:none">Sending…</span>
+          </button>
+          <p class="cf-privacy">💬 We'll reply on WhatsApp within 24 hours with your quote!</p>
+        </div>
+
+        <div class="f-ok" id="fok">
+          <p>🎉 Order received! We'll WhatsApp you shortly with your quote.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════ TESTIMONIALS ══════════════ -->
+<section id="testimonials">
+  <div class="t-wrap">
+    <div class="rvl">
+      <p class="ey">Sweet Words</p>
+      <h2 class="st">What They<br><em>Say</em></h2>
+      <div class="rule"></div>
+      <p class="sb">Real love notes from our customers — the kind that make us smile every single time.</p>
+      <div class="t-ctr" id="tctr">01</div>
+    </div>
+    <div class="rvr">
+      <div class="t-tw"><div class="t-tr" id="tt">
+
+        <div class="t-sl">
+          <div class="t-st">★★★★★</div>
+          <p class="t-q">The calendar birthday cake was the most unique cake I've ever seen! Everyone at the party was amazed. The taste was absolutely divine — moist, perfectly sweet, and so beautiful. Will order again!</p>
+          <div class="t-au">
+            <div class="t-av">P</div>
+            <div>
+              <div class="t-nm">Priya</div>
+              <div class="t-rl">Birthday Cake · Durgapur</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="t-sl">
+          <div class="t-st">★★★★★</div>
+          <p class="t-q">I ordered the anniversary cake with the cartoon couple print and it was perfect! My husband was so touched. The cake was delivered on time and tasted incredible. Highly recommend AAAS Bakery!</p>
+          <div class="t-au">
+            <div class="t-av">S</div>
+            <div>
+              <div class="t-nm">Sneha</div>
+              <div class="t-rl">Anniversary Cake · Asansol</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="t-sl">
+          <div class="t-st">★★★★★</div>
+          <p class="t-q">The Melody bouquet was such a creative gift idea! My friend was over the moon. The packaging was gorgeous and the whole thing looked even better than the photos. Definitely ordering more gifts from here.</p>
+          <div class="t-au">
+            <div class="t-av">R</div>
+            <div>
+              <div class="t-nm">Riya</div>
+              <div class="t-rl">Candy Bouquet · Raniganj</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="t-sl">
+          <div class="t-st">★★★★★</div>
+          <p class="t-q">Got the 3D car cake for my son's birthday and the look on his face was priceless! The detail was incredible and it tasted just as good as it looked. This bakery is truly talented. Will be a regular customer!</p>
+          <div class="t-au">
+            <div class="t-av">A</div>
+            <div>
+              <div class="t-nm">Ananya</div>
+              <div class="t-rl">Theme Cake · Dhanbad</div>
+            </div>
+          </div>
+        </div>
+
+      </div></div>
+
+      <div class="t-ct">
+        <button class="t-bt" id="tprev">←</button>
+        <div class="t-ds">
+          <div class="t-dt on"></div>
+          <div class="t-dt"></div>
+          <div class="t-dt"></div>
+          <div class="t-dt"></div>
+        </div>
+        <button class="t-bt" id="tnext">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="contact" class="contact-section">
+
+  <div class="contact-bg-deco">
+    <div class="c-circle c-c1"></div>
+    <div class="c-circle c-c2"></div>
+  </div>
+
+  <div class="contact-top rv">
+    <p class="ey">Get in Touch</p>
+    <h2 class="st">Let's Make Something <em>Sweet</em></h2>
+    <div class="rule"></div>
+    <p class="sb">Reach out to place an order, ask a question, or just say hello! We love hearing from you.</p>
+  </div>
+
+  <div class="contact-strip rv d2">
+    <div class="cs-item">
+      <div class="cs-icon">📍</div>
+      <div class="cs-label">Location</div>
+      <div class="cs-val">Asansol, West Bengal</div>
+    </div>
+    <div class="cs-div"></div>
+    <div class="cs-item">
+      <div class="cs-icon">📞</div>
+      <div class="cs-label">Phone / WhatsApp</div>
+      <div class="cs-val">+91 8597538144</div>
+    </div>
+    <div class="cs-div"></div>
+    <div class="cs-item">
+      <div class="cs-icon">📸</div>
+      <div class="cs-label">Instagram</div>
+      <div class="cs-val">@aaas_bakery_</div>
+    </div>
+    <div class="cs-div"></div>
+    <div class="cs-item">
+      <div class="cs-icon">⏰</div>
+      <div class="cs-label">Order Lead Time</div>
+      <div class="cs-val">Min. 1-2 Days Notice</div>
+    </div>
+  </div>
+
+  <div class="contact-body">
+    <div class="ci-block rvl">
+      <div class="ci-inner">
+        <h3 class="ci-heading">Find <em>Us</em></h3>
+        <p class="ci-sub">We're a home bakery based in Asansol, West Bengal. All orders are made fresh to order and can be picked up or delivered locally.</p>
+
+        <div class="ci-details">
+          <div class="ci-detail">
+            <div class="ci-icon">📍</div>
+            <div>
+              <div class="ci-lbl">Address</div>
+              <div class="ci-val">AAAS Bakery<br>Asansol, West Bengal<br>[Add full address here]</div>
+            </div>
+          </div>
+          <div class="ci-detail">
+            <div class="ci-icon">📞</div>
+            <div>
+              <div class="ci-lbl">Phone & WhatsApp</div>
+              <div class="ci-val">+91 [your number]<br>Available 9 AM – 9 PM</div>
+            </div>
+          </div>
+          <div class="ci-detail">
+            <div class="ci-icon">📧</div>
+            <div>
+              <div class="ci-lbl">Email</div>
+              <div class="ci-val">[your email here]</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ci-socials-row">
+          <div class="ci-lbl" style="margin-bottom:14px">Follow Our Sweet Journey</div>
+          <div class="ci-socials">
+            <a href="https://instagram.com/aaas_bakery_" target="_blank" class="sa" title="Instagram">IG</a>
+            <a href="#" class="sa" title="WhatsApp">WA</a>
+            <a href="#" class="sa" title="Facebook">FB</a>
+          </div>
+        </div>
+
+        <div class="ci-promise">
+          <div class="cip-item"><span class="cip-check">✓</span>Quote within 24 hours</div>
+          <div class="cip-item"><span class="cip-check">✓</span>Fresh baked to order</div>
+          <div class="cip-item"><span class="cip-check">✓</span>100% custom designs</div>
+          <div class="cip-item"><span class="cip-check">✓</span>Local delivery available</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ci-map rvr">
+      
+      <div class="ci-map-inner">
+        <div class="cmap-logo">AAAS <em>Bakery</em></div>
+        <div class="cmap-tag">Creating Sweet Memories</div>
+        <div class="cmap-deco">
+          <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" width="220" height="220" opacity="0.15">
+            <circle cx="150" cy="150" r="120" fill="none" stroke="#e05088" stroke-width="1"/>
+            <circle cx="150" cy="150" r="80" fill="none" stroke="#e05088" stroke-width="1"/>
+            <circle cx="150" cy="150" r="40" fill="none" stroke="#e05088" stroke-width="1"/>
+            <text x="150" y="160" text-anchor="middle" font-family="Playfair Display,serif" font-size="48" fill="#e05088">🎂</text>
+          </svg>
+        </div>
+        <a href="https://instagram.com/aaas_bakery_" target="_blank" class="cmap-btn">
+          Visit us on Instagram →
+        </a>
+        <a href="tel:+91XXXXXXXXXX" class="cmap-btn cmap-btn-wh">
+          📞 Call to Order
+        </a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <div class="ft-top">
+    <div class="ft-brand">
+      <div class="ft-logo">AAAS <em>Bakery</em></div>
+      <div class="ft-tagline">Creating Sweet Memories</div>
+    </div>
+    <nav class="ft-lks">
+      <a href="#home">Home</a>
+      <a href="#specialties">Our Cakes</a>
+      <a href="#about">Our Story</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#custom">Custom Order</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="ft-mid">
+    <div class="ft-soc">
+      <a href="https://instagram.com/aaas_bakery_" target="_blank" class="sa">IG</a>
+      <a href="#" class="sa">WA</a>
+      <a href="#" class="sa">FB</a>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <p class="ft-cp">© 2025 AAAS Bakery · Asansol, West Bengal · All Rights Reserved</p>
+    <p class="ft-tl">"Creating Sweet Memories" 🎂</p>
+  </div>
+  <div class="ft-riz">made with ♥ by Riz</div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
