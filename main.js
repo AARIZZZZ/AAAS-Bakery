@@ -1,4 +1,3 @@
-
 (function () {
   var fill = document.getElementById('lf');
   var pct  = document.getElementById('lpct');
@@ -164,7 +163,6 @@ const counterObserver = new IntersectionObserver(entries =>
 );
 document.querySelectorAll('.cu').forEach(el => counterObserver.observe(el));
 
-─
 document.querySelectorAll('.btn').forEach(btn => {
   btn.addEventListener('mousemove', e => {
     const r = btn.getBoundingClientRect();
