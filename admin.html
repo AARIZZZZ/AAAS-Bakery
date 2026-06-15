@@ -15,6 +15,25 @@
   --card:#fff;--border:rgba(224,80,136,.15);
 }
 body{font-family:'DM Sans',sans-serif;background:#f8f0f5;color:var(--dark);min-height:100vh}
+/* ── Login Screen ── */
+#loginScreen{position:fixed;inset:0;background:linear-gradient(135deg,var(--dark) 0%,#1a0a12 100%);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column}
+#loginScreen.hide{animation:loginFade .5s forwards}
+@keyframes loginFade{to{opacity:0;pointer-events:none;visibility:hidden}}
+.login-card{background:rgba(255,255,255,.05);border:1px solid rgba(245,198,216,.12);border-radius:24px;padding:48px 40px;width:100%;max-width:380px;text-align:center;backdrop-filter:blur(20px)}
+.login-logo{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;margin-bottom:6px}.login-logo em{color:var(--pink);font-style:italic}
+.login-sub{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,198,216,.35);margin-bottom:36px}
+.login-lock{font-size:2.6rem;margin-bottom:24px;display:block}
+.login-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,198,216,.4);display:block;text-align:left;margin-bottom:7px}
+.login-input{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(245,198,216,.15);border-radius:12px;padding:14px 18px;color:#fff;font-family:'DM Sans',sans-serif;font-size:1rem;outline:none;transition:border-color .2s;letter-spacing:.1em;margin-bottom:16px}
+.login-input:focus{border-color:var(--hot)}
+.login-input::placeholder{color:rgba(255,255,255,.18);letter-spacing:normal}
+.login-btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--hot),var(--deep));color:#fff;border:none;border-radius:40px;font-family:'DM Sans',sans-serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:opacity .2s,transform .2s;margin-top:4px}
+.login-btn:hover{opacity:.88;transform:translateY(-1px)}
+.login-btn:active{transform:scale(.97)}
+.login-err{background:rgba(231,76,60,.15);color:#ff8a8a;border:1px solid rgba(231,76,60,.2);border-radius:10px;padding:10px 14px;font-size:.8rem;margin-top:12px;display:none}
+.login-err.show{display:block}
+.login-shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
 .adm-header{background:var(--dark);padding:18px 36px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.3)}
 .adm-logo{font-family:'Playfair Display',serif;color:#fff;font-size:1.3rem;letter-spacing:.04em}
 .adm-logo em{color:var(--pink);font-style:italic}
@@ -100,6 +119,19 @@ body{font-family:'DM Sans',sans-serif;background:#f8f0f5;color:var(--dark);min-h
 <body>
 
 <div id="toast" class="toast"></div>
+
+<!-- ── Login Screen ── -->
+<div id="loginScreen">
+  <div class="login-card">
+    <span class="login-lock">🔐</span>
+    <div class="login-logo">AAAS <em>Bakery</em></div>
+    <div class="login-sub">Admin Panel</div>
+    <label class="login-label" for="loginPass">Password</label>
+    <input class="login-input" type="password" id="loginPass" placeholder="Enter password" autocomplete="current-password" onkeydown="if(event.key==='Enter')checkLogin()"/>
+    <button class="login-btn" onclick="checkLogin()">Unlock Panel 🎂</button>
+    <div class="login-err" id="loginErr">Wrong password. Try again.</div>
+  </div>
+</div>
 
 <header class="adm-header">
   <div class="adm-logo">AAAS <em>Bakery</em> — Admin</div>
@@ -253,6 +285,40 @@ body{font-family:'DM Sans',sans-serif;background:#f8f0f5;color:var(--dark);min-h
 <script src="flavours.js"></script>
 <script src="payment.js"></script>
 <script>
+
+/* ══════════════════════════════
+   LOGIN
+   To change the password: update ADMIN_PASSWORD below.
+   Default: aaas2024
+══════════════════════════════ */
+const ADMIN_PASSWORD = 'anjali2024';
+
+function checkLogin() {
+  const input = document.getElementById('loginPass');
+  const err   = document.getElementById('loginErr');
+  const card  = input.closest('.login-card');
+
+  if (input.value === ADMIN_PASSWORD) {
+    sessionStorage.setItem('aaas_admin_auth', '1');
+    document.getElementById('loginScreen').classList.add('hide');
+    setTimeout(() => document.getElementById('loginScreen').style.display = 'none', 500);
+    err.classList.remove('show');
+  } else {
+    err.classList.add('show');
+    card.classList.remove('login-shake');
+    void card.offsetWidth;
+    card.classList.add('login-shake');
+    input.value = '';
+    input.focus();
+  }
+}
+
+(function() {
+  if (sessionStorage.getItem('aaas_admin_auth') === '1') {
+    const screen = document.getElementById('loginScreen');
+    if (screen) screen.style.display = 'none';
+  }
+})();
 
 /* ── Toast ── */
 function toast(msg, color = '#2d1520') {
