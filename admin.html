@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AAAS Bakery — Admin Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --hot:#e05088;--deep:#b02060;--dark:#2d1520;--text:#4a2535;
+  --muted:#a06080;--cream:#fffaf8;--rose:#fde8ef;--pink:#f5c6d8;
+  --green:#2ecc71;--red:#e74c3c;--blue:#3498db;
+  --card:#fff;--border:rgba(224,80,136,.15);
+}
+body{font-family:'DM Sans',sans-serif;background:#f8f0f5;color:var(--dark);min-height:100vh}
+.adm-header{background:var(--dark);padding:18px 36px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.adm-logo{font-family:'Playfair Display',serif;color:#fff;font-size:1.3rem;letter-spacing:.04em}
+.adm-logo em{color:var(--pink);font-style:italic}
+.adm-back{color:rgba(255,255,255,.5);text-decoration:none;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;transition:color .2s}
+.adm-back:hover{color:var(--pink)}
+.adm-body{max-width:1100px;margin:0 auto;padding:36px 24px}
+.adm-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:760px){.adm-grid{grid-template-columns:1fr}}
+.adm-card{background:var(--card);border-radius:16px;padding:28px;border:1px solid var(--border);box-shadow:0 2px 16px rgba(45,21,32,.06)}
+.adm-card.full{grid-column:1/-1}
+.adm-card-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:500;color:var(--dark);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.adm-card-sub{font-size:.8rem;color:var(--muted);margin-bottom:22px;line-height:1.6}
+.adm-label{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;margin-top:16px}
+.adm-input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:.9rem;color:var(--dark);background:#fff;outline:none;transition:border-color .2s}
+.adm-input:focus{border-color:var(--hot)}
+.adm-select{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:.9rem;background:#fff;color:var(--dark);outline:none}
+.adm-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border:none;border-radius:30px;font-family:inherit;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .2s,transform .15s}
+.adm-btn:active{transform:scale(.97)}
+.adm-btn-hot{background:var(--hot);color:#fff}
+.adm-btn-hot:hover{background:var(--deep)}
+.adm-btn-green{background:var(--green);color:#fff}
+.adm-btn-green:hover{background:#27ae60}
+.adm-btn-red{background:var(--red);color:#fff}
+.adm-btn-red:hover{background:#c0392b}
+.adm-btn-ghost{background:transparent;color:var(--hot);border:1.5px solid var(--hot)}
+.adm-btn-ghost:hover{background:var(--rose)}
+.adm-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+/* ── Gallery list ── */
+.gi-list{display:flex;flex-direction:column;gap:10px;max-height:480px;overflow-y:auto;padding-right:4px}
+.gi-list::-webkit-scrollbar{width:3px}
+.gi-list::-webkit-scrollbar-thumb{background:var(--pink);border-radius:3px}
+.gi-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:#fdf5f8;border:1px solid var(--border)}
+.gi-thumb{width:52px;height:52px;border-radius:8px;object-fit:cover;background:var(--rose);flex-shrink:0;background-size:cover;background-position:center}
+.gi-meta{flex:1;min-width:0}
+.gi-name{font-size:.88rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gi-cat{font-size:.7rem;color:var(--muted);margin-top:2px}
+.gi-actions{display:flex;gap:6px}
+.gi-del{background:none;border:none;color:var(--red);font-size:1.1rem;cursor:pointer;padding:4px;border-radius:6px;transition:background .2s}
+.gi-del:hover{background:rgba(231,76,60,.1)}
+/* ── Flavours ── */
+.fl-list{display:flex;flex-direction:column;gap:8px;max-height:380px;overflow-y:auto;padding-right:4px}
+.fl-list::-webkit-scrollbar{width:3px}
+.fl-list::-webkit-scrollbar-thumb{background:var(--pink);border-radius:3px}
+.fl-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:#fdf5f8;border:1px solid var(--border)}
+.fl-emoji{font-size:1.2rem;width:28px;text-align:center}
+.fl-name{flex:1;font-size:.9rem}
+.fl-toggle{position:relative;width:40px;height:22px;flex-shrink:0}
+.fl-toggle input{opacity:0;width:0;height:0}
+.fl-slider{position:absolute;inset:0;background:#ccc;border-radius:22px;cursor:pointer;transition:.3s}
+.fl-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.3s}
+.fl-toggle input:checked + .fl-slider{background:var(--hot)}
+.fl-toggle input:checked + .fl-slider::before{transform:translateX(18px)}
+.fl-del{background:none;border:none;color:var(--red);font-size:1rem;cursor:pointer;padding:4px;border-radius:6px;transition:background .2s}
+.fl-del:hover{background:rgba(231,76,60,.1)}
+/* ── Instagram panel ── */
+.ig-step{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}
+.ig-step:last-child{border-bottom:none}
+.ig-step-num{width:28px;height:28px;border-radius:50%;background:var(--hot);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:600;flex-shrink:0;margin-top:2px}
+.ig-step-t{font-size:.9rem;font-weight:500;color:var(--dark);margin-bottom:3px}
+.ig-step-s{font-size:.8rem;color:var(--muted);line-height:1.5}
+.ig-url-row{display:flex;gap:10px;margin-top:10px}
+.ig-url-row .adm-input{flex:1}
+/* ── Razorpay ── */
+.rp-status{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;padding:4px 12px;border-radius:20px;margin-bottom:16px}
+.rp-status.unconfigured{background:rgba(231,76,60,.1);color:var(--red)}
+.rp-status.configured{background:rgba(46,204,113,.1);color:#27ae60}
+.rp-step{background:#fdf5f8;border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid var(--hot)}
+.rp-step-title{font-size:.85rem;font-weight:600;color:var(--dark);margin-bottom:4px}
+.rp-step-desc{font-size:.78rem;color:var(--muted);line-height:1.6}
+.rp-step-desc a{color:var(--hot);text-decoration:none}
+.rp-step-desc a:hover{text-decoration:underline}
+/* ── Toast ── */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--dark);color:#fff;padding:12px 24px;border-radius:30px;font-size:.8rem;letter-spacing:.08em;z-index:9999;opacity:0;transition:opacity .3s,transform .3s;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* ── Add gallery image preview ── */
+.add-preview{width:100%;height:160px;border-radius:10px;background:var(--rose);border:2px dashed var(--pink);display:flex;align-items:center;justify-content:center;margin-top:10px;font-size:.8rem;color:var(--muted);background-size:cover;background-position:center;transition:border-color .2s}
+.add-preview.has-img{border-style:solid;border-color:var(--hot)}
+.adm-divider{height:1px;background:var(--border);margin:20px 0}
+.adm-hint{font-size:.72rem;color:var(--muted);margin-top:4px;line-height:1.5}
+.key-masked{font-family:monospace;font-size:.85rem;color:var(--muted);background:#f0e8ee;padding:4px 10px;border-radius:6px;display:inline-block;margin-top:4px}
+</style>
+</head>
+<body>
+
+<div id="toast" class="toast"></div>
+
+<header class="adm-header">
+  <div class="adm-logo">AAAS <em>Bakery</em> — Admin</div>
+  <a href="index.html" class="adm-back">← Back to Website</a>
+</header>
+
+<div class="adm-body">
+  <div class="adm-grid">
+
+    <!-- ── RAZORPAY CONFIG ── -->
+    <div class="adm-card full">
+      <div class="adm-card-title">💳 Razorpay Payment Setup</div>
+      <div class="adm-card-sub">Configure your Razorpay API key so customers can pay directly into your bank account. You only need to do this once.</div>
+
+      <div id="rpStatus" class="rp-status unconfigured">⚠️ Not configured yet</div>
+
+      <div class="rp-step">
+        <div class="rp-step-title">Step 1 — Create a Razorpay Account</div>
+        <div class="rp-step-desc">Go to <a href="https://razorpay.com" target="_blank">razorpay.com</a> → Sign Up (it's free). Use your business name <strong>AAAS Bakery</strong>.</div>
+      </div>
+      <div class="rp-step">
+        <div class="rp-step-title">Step 2 — Add Your Bank Account</div>
+        <div class="rp-step-desc">In Razorpay Dashboard → <strong>Settings → Bank Account</strong> → Add your account. All payments go there automatically.</div>
+      </div>
+      <div class="rp-step">
+        <div class="rp-step-title">Step 3 — Get Your API Key</div>
+        <div class="rp-step-desc">Dashboard → <strong>Settings → API Keys → Generate Live Key</strong>. It starts with <code>rzp_live_</code>. Paste it below.</div>
+      </div>
+
+      <label class="adm-label">Razorpay Live Key ID</label>
+      <input class="adm-input" id="rzpKey" type="password" placeholder="rzp_live_xxxxxxxxxxxx" autocomplete="off"/>
+      <div class="adm-hint">This is stored in your browser only — never sent anywhere else.</div>
+
+      <label class="adm-label" style="margin-top:14px">Business Name (shown in payment popup)</label>
+      <input class="adm-input" id="rzpBizName" type="text" placeholder="AAAS Bakery" value="AAAS Bakery"/>
+
+      <label class="adm-label">Contact Email</label>
+      <input class="adm-input" id="rzpEmail" type="email" placeholder="aaasbakery@gmail.com"/>
+
+      <label class="adm-label">Contact Phone (for Razorpay prefill)</label>
+      <input class="adm-input" id="rzpPhone" type="tel" placeholder="917XXXXXXXXX (with country code)"/>
+
+      <div class="adm-row">
+        <button class="adm-btn adm-btn-hot" onclick="saveRazorpay()">💾 Save Payment Config</button>
+        <button class="adm-btn adm-btn-ghost" onclick="testRazorpay()">🧪 Test Payment (₹1)</button>
+      </div>
+    </div>
+
+    <!-- ── GALLERY MANAGER ── -->
+    <div class="adm-card">
+      <div class="adm-card-title">🖼️ Gallery Manager</div>
+      <div class="adm-card-sub">Add, remove or reorder cake photos. Changes reflect instantly on the website.</div>
+
+      <div class="gi-list" id="galleryList"></div>
+
+      <div class="adm-divider"></div>
+
+      <div class="adm-card-title" style="font-size:1rem;margin-bottom:4px">➕ Add New Photo</div>
+
+      <label class="adm-label">Image File Name or Full URL</label>
+      <input class="adm-input" id="newGiImg" type="text" placeholder="photo.jpg  or  https://instagram.com/...jpg" oninput="previewNewGi()"/>
+      <div class="add-preview" id="newGiPreview">Image preview</div>
+
+      <label class="adm-label">Caption</label>
+      <input class="adm-input" id="newGiLabel" type="text" placeholder="Birthday Ombre Cake"/>
+
+      <label class="adm-label">Category</label>
+      <select class="adm-select" id="newGiCat">
+        <option value="birthday">Birthday</option>
+        <option value="anniversary">Anniversary</option>
+        <option value="theme">Theme</option>
+        <option value="special">Special</option>
+      </select>
+
+      <div class="adm-row">
+        <button class="adm-btn adm-btn-hot" onclick="addGalleryItem()">➕ Add to Gallery</button>
+        <button class="adm-btn adm-btn-ghost" onclick="saveGallery()">💾 Save All</button>
+      </div>
+    </div>
+
+    <!-- ── FLAVOURS MANAGER ── -->
+    <div class="adm-card">
+      <div class="adm-card-title">🎂 Flavours Manager</div>
+      <div class="adm-card-sub">Add/remove cake flavours or toggle their availability. Toggle off for seasonal or out-of-stock flavours.</div>
+
+      <div class="fl-list" id="flavourList"></div>
+
+      <div class="adm-divider"></div>
+
+      <div class="adm-card-title" style="font-size:1rem;margin-bottom:4px">➕ Add New Flavour</div>
+      <div style="display:flex;gap:10px;margin-top:10px">
+        <input class="adm-input" id="newFlEmoji" type="text" placeholder="🍓" style="width:70px;text-align:center;font-size:1.2rem"/>
+        <input class="adm-input" id="newFlName" type="text" placeholder="Flavour name (e.g. Taro)" style="flex:1"/>
+      </div>
+      <div class="adm-row">
+        <button class="adm-btn adm-btn-hot" onclick="addFlavour()">➕ Add Flavour</button>
+        <button class="adm-btn adm-btn-ghost" onclick="saveFlavoursAdmin()">💾 Save All</button>
+      </div>
+    </div>
+
+    <!-- ── INSTAGRAM SYNC ── -->
+    <div class="adm-card full">
+      <div class="adm-card-title">📸 Instagram Photo Sync</div>
+      <div class="adm-card-sub">Paste direct image URLs from your Instagram posts to instantly add them to the gallery. No API key needed.</div>
+
+      <div class="ig-step">
+        <div class="ig-step-num">1</div>
+        <div>
+          <div class="ig-step-t">Open Instagram on desktop</div>
+          <div class="ig-step-s">Go to <a href="https://instagram.com/aaas_bakery_" target="_blank" style="color:var(--hot)">@aaas_bakery_</a> and open the post you want to add</div>
+        </div>
+      </div>
+      <div class="ig-step">
+        <div class="ig-step-num">2</div>
+        <div>
+          <div class="ig-step-t">Copy the image URL</div>
+          <div class="ig-step-s">Right-click the photo → <strong>"Open image in new tab"</strong> → copy the URL from the address bar. It usually starts with <code>https://scontent...</code></div>
+        </div>
+      </div>
+      <div class="ig-step">
+        <div class="ig-step-num">3</div>
+        <div>
+          <div class="ig-step-t">Paste below & add to gallery</div>
+          <div class="ig-step-s">Paste the URL, add a caption and category, then click Add. It'll appear in the gallery instantly.</div>
+          <div class="ig-url-row" style="margin-top:12px">
+            <input class="adm-input" id="igUrl" type="url" placeholder="https://scontent-xxx.cdninstagram.com/...jpg"/>
+            <input class="adm-input" id="igLabel" type="text" placeholder="Caption" style="max-width:200px"/>
+            <select class="adm-select" id="igCat" style="max-width:160px">
+              <option value="birthday">Birthday</option>
+              <option value="anniversary">Anniversary</option>
+              <option value="theme">Theme</option>
+              <option value="special">Special</option>
+            </select>
+            <button class="adm-btn adm-btn-hot" onclick="addFromInstagram()">Add to Gallery</button>
+          </div>
+        </div>
+      </div>
+      <div class="ig-step">
+        <div class="ig-step-num">💡</div>
+        <div>
+          <div class="ig-step-t">Pro tip</div>
+          <div class="ig-step-s">Instagram CDN URLs expire after ~24 hours. For permanent photos, download the image from Instagram, save it in the same folder as index.html, and use the filename instead of the URL.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="gallery-data.js"></script>
+<script src="flavours.js"></script>
+<script src="payment.js"></script>
+<script>
+
+/* ── Toast ── */
+function toast(msg, color = '#2d1520') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = color;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ══════════════════════════════
+   RAZORPAY ADMIN
+══════════════════════════════ */
+function loadRazorpayConfig() {
+  const cfg = JSON.parse(localStorage.getItem('aaas_rzp_cfg') || '{}');
+  if (cfg.key) {
+    document.getElementById('rzpKey').value = cfg.key;
+    document.getElementById('rzpBizName').value = cfg.business_name || 'AAAS Bakery';
+    document.getElementById('rzpEmail').value = cfg.contact_email || '';
+    document.getElementById('rzpPhone').value = cfg.contact_phone || '';
+
+    const status = document.getElementById('rpStatus');
+    status.className = 'rp-status configured';
+    status.textContent = '✅ Configured — ' + cfg.key.substring(0, 16) + '...';
+  }
+}
+
+function saveRazorpay() {
+  const key   = document.getElementById('rzpKey').value.trim();
+  const biz   = document.getElementById('rzpBizName').value.trim();
+  const email = document.getElementById('rzpEmail').value.trim();
+  const phone = document.getElementById('rzpPhone').value.trim();
+
+  if (!key || !key.startsWith('rzp_')) {
+    toast('⚠️ Key must start with rzp_live_ or rzp_test_', '#e74c3c');
+    return;
+  }
+
+  const cfg = { key, business_name: biz, contact_email: email, contact_phone: phone, theme_color: '#e05088', logo: 'logo.png', description: 'Cake Order Advance Payment' };
+  localStorage.setItem('aaas_rzp_cfg', JSON.stringify(cfg));
+
+  /* Inject into payment.js at runtime */
+  Object.assign(RAZORPAY_CONFIG, cfg);
+
+  const status = document.getElementById('rpStatus');
+  status.className = 'rp-status configured';
+  status.textContent = '✅ Configured — ' + key.substring(0, 16) + '...';
+
+  toast('✅ Payment config saved!', '#27ae60');
+}
+
+function testRazorpay() {
+  const cfg = JSON.parse(localStorage.getItem('aaas_rzp_cfg') || '{}');
+  if (!cfg.key) { toast('⚠️ Save your Razorpay key first', '#e74c3c'); return; }
+
+  Object.assign(RAZORPAY_CONFIG, cfg);
+  const rzp = new Razorpay({
+    key: cfg.key,
+    amount: 100,
+    currency: 'INR',
+    name: cfg.business_name || 'AAAS Bakery',
+    description: 'Test Payment',
+    theme: { color: '#e05088' },
+    handler: () => toast('✅ Test payment successful!', '#27ae60')
+  });
+  rzp.open();
+}
+
+/* ══════════════════════════════
+   GALLERY ADMIN
+══════════════════════════════ */
+let adminGallery = [];
+
+function loadGalleryAdmin() {
+  const saved = localStorage.getItem('aaas_gallery');
+  adminGallery = saved ? JSON.parse(saved) : [...GALLERY_ITEMS];
+  renderGalleryAdmin();
+}
+
+function renderGalleryAdmin() {
+  const list = document.getElementById('galleryList');
+  if (!list) return;
+  list.innerHTML = '';
+  adminGallery.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'gi-item';
+    div.innerHTML = `
+      <div class="gi-thumb" style="background-image:url('${item.img}')"></div>
+      <div class="gi-meta">
+        <div class="gi-name">${item.label}</div>
+        <div class="gi-cat">${item.category}</div>
+      </div>
+      <div class="gi-actions">
+        <button class="gi-del" title="Delete" onclick="deleteGalleryItem(${idx})">🗑️</button>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function previewNewGi() {
+  const url = document.getElementById('newGiImg').value.trim();
+  const prev = document.getElementById('newGiPreview');
+  if (url) {
+    prev.style.backgroundImage = `url('${url}')`;
+    prev.textContent = '';
+    prev.classList.add('has-img');
+  } else {
+    prev.style.backgroundImage = '';
+    prev.textContent = 'Image preview';
+    prev.classList.remove('has-img');
+  }
+}
+
+function addGalleryItem() {
+  const img   = document.getElementById('newGiImg').value.trim();
+  const label = document.getElementById('newGiLabel').value.trim();
+  const cat   = document.getElementById('newGiCat').value;
+  if (!img) { toast('⚠️ Paste an image URL or filename', '#e74c3c'); return; }
+  if (!label) { toast('⚠️ Add a caption', '#e74c3c'); return; }
+  const idx = adminGallery.length;
+  const span = `g${(idx % 8) + 1}`;
+  adminGallery.push({ img, label, category: cat, span });
+  saveGallery();
+  document.getElementById('newGiImg').value = '';
+  document.getElementById('newGiLabel').value = '';
+  document.getElementById('newGiPreview').style.backgroundImage = '';
+  document.getElementById('newGiPreview').textContent = 'Image preview';
+  document.getElementById('newGiPreview').classList.remove('has-img');
+  toast('✅ Photo added to gallery!', '#27ae60');
+}
+
+function deleteGalleryItem(idx) {
+  if (!confirm('Delete this photo from the gallery?')) return;
+  adminGallery.splice(idx, 1);
+  saveGallery();
+  toast('🗑️ Photo removed', '#e05088');
+}
+
+function saveGallery() {
+  localStorage.setItem('aaas_gallery', JSON.stringify(adminGallery));
+  renderGalleryAdmin();
+}
+
+function addFromInstagram() {
+  const url   = document.getElementById('igUrl').value.trim();
+  const label = document.getElementById('igLabel').value.trim();
+  const cat   = document.getElementById('igCat').value;
+  if (!url) { toast('⚠️ Paste the Instagram image URL', '#e74c3c'); return; }
+  if (!label) { toast('⚠️ Add a caption', '#e74c3c'); return; }
+  const idx = adminGallery.length;
+  adminGallery.push({ img: url, label, category: cat, span: `g${(idx % 8) + 1}` });
+  saveGallery();
+  document.getElementById('igUrl').value = '';
+  document.getElementById('igLabel').value = '';
+  toast('📸 Instagram photo added!', '#27ae60');
+}
+
+/* ══════════════════════════════
+   FLAVOURS ADMIN
+══════════════════════════════ */
+let adminFlavours = [];
+
+function loadFlavoursAdmin() {
+  const saved = localStorage.getItem('aaas_flavours');
+  adminFlavours = saved ? JSON.parse(saved) : [...FLAVOURS];
+  renderFlavoursAdmin();
+}
+
+function renderFlavoursAdmin() {
+  const list = document.getElementById('flavourList');
+  if (!list) return;
+  list.innerHTML = '';
+  adminFlavours.forEach((f, idx) => {
+    const div = document.createElement('div');
+    div.className = 'fl-item';
+    div.innerHTML = `
+      <div class="fl-emoji">${f.emoji || '🎂'}</div>
+      <div class="fl-name">${f.name}</div>
+      <label class="fl-toggle">
+        <input type="checkbox" ${f.available ? 'checked' : ''} onchange="toggleFlavour(${idx}, this.checked)"/>
+        <span class="fl-slider"></span>
+      </label>
+      <button class="fl-del" title="Delete" onclick="deleteFlavour(${idx})">🗑️</button>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function toggleFlavour(idx, val) {
+  adminFlavours[idx].available = val;
+  saveFlavoursAdmin();
+}
+
+function deleteFlavour(idx) {
+  if (!confirm('Remove this flavour?')) return;
+  adminFlavours.splice(idx, 1);
+  saveFlavoursAdmin();
+  toast('🗑️ Flavour removed', '#e05088');
+}
+
+function addFlavour() {
+  const emoji = document.getElementById('newFlEmoji').value.trim();
+  const name  = document.getElementById('newFlName').value.trim();
+  if (!name) { toast('⚠️ Enter a flavour name', '#e74c3c'); return; }
+  adminFlavours.push({ name, emoji: emoji || '🎂', available: true });
+  saveFlavoursAdmin();
+  document.getElementById('newFlEmoji').value = '';
+  document.getElementById('newFlName').value = '';
+  toast('✅ Flavour added!', '#27ae60');
+}
+
+function saveFlavoursAdmin() {
+  localStorage.setItem('aaas_flavours', JSON.stringify(adminFlavours));
+  renderFlavoursAdmin();
+  toast('✅ Flavours saved!', '#27ae60');
+}
+
+/* ══════════════════════════════
+   INIT
+══════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  loadRazorpayConfig();
+  loadGalleryAdmin();
+  loadFlavoursAdmin();
+});
+
+/* Pull saved gallery into main site GALLERY_ITEMS at runtime */
+(function patchGalleryItems() {
+  const saved = localStorage.getItem('aaas_gallery');
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      GALLERY_ITEMS.length = 0;
+      parsed.forEach(i => GALLERY_ITEMS.push(i));
+    } catch(e) {}
+  }
+})();
+
+/* Pull saved Razorpay config */
+(function patchRzpConfig() {
+  const cfg = localStorage.getItem('aaas_rzp_cfg');
+  if (cfg) {
+    try { Object.assign(RAZORPAY_CONFIG, JSON.parse(cfg)); } catch(e) {}
+  }
+})();
+
+</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</body>
+</html>
